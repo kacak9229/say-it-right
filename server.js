@@ -1,9 +1,11 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const passport = require('passport')
 const dotenv = require('dotenv')
 const helmet = require('helmet')
+const nunjucks = require('nunjucks')
 const app = express()
 
 const result = dotenv.config()
@@ -43,9 +45,12 @@ app.use(morgan('dev'))
 
 /* App routes */
 const mainRoutes = require('./routes/main')
-const accountRoutes = require('./routes/account')
-app.use('/api', mainRoutes)
-app.use('/api', accountRoutes)
+// const accountRoutes = require('./routes/account')
+const categoryRoutes = require('./routes/category')
+
+app.use('/', mainRoutes)
+// app.use('/api', accountRoutes)
+app.use('/api', categoryRoutes)
 
 app.listen(process.env.PORT, err => {
   if (err) {
